@@ -27,7 +27,7 @@ def allowUserAccessToIamMutatorRole(username):
     print(f'User {username} added.')
 
 if __name__ == '__main__':
-    primaryUserName = 'jimhill'
+    primaryUserName = 'jim-hill-r'
     createIamMutatorRole()
     createUser(primaryUserName)
     allowUserAccessToIamMutatorRole(primaryUserName)

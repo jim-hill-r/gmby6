@@ -16,6 +16,6 @@ def createUser(username):
         print(f'User {username} probably already exists, not creating.')
 
 if __name__ == '__main__':
-    usernames = ['jimhill','stevenhill']
+    usernames = ['jim-hill-r','stevenhill']
     for username in usernames:
         createUser(username)
