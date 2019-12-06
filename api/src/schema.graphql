@@ -1,0 +1,110 @@
+input CreatePostInput {
+	title: String!
+}
+
+input DeletePostInput {
+	id: ID!
+}
+
+type Mutation {
+	putPost(id: ID!, title: String!): Post
+	createPost(input: CreatePostInput!): Post
+	updatePost(input: UpdatePostInput!): Post
+	deletePost(input: DeletePostInput!): Post
+}
+
+type Post {
+	id: ID!
+	title: String!
+}
+
+type PostConnection {
+	items: [Post]
+	nextToken: String
+}
+
+type Query {
+	singlePost(id: ID!): Post
+	getPost(id: ID!): Post
+	listPosts(filter: TablePostFilterInput, limit: Int, nextToken: String): PostConnection
+}
+
+type Subscription {
+	onCreatePost(id: ID, title: String): Post
+		@aws_subscribe(mutations: ["createPost"])
+	onUpdatePost(id: ID, title: String): Post
+		@aws_subscribe(mutations: ["updatePost"])
+	onDeletePost(id: ID, title: String): Post
+		@aws_subscribe(mutations: ["deletePost"])
+}
+
+input TableBooleanFilterInput {
+	ne: Boolean
+	eq: Boolean
+}
+
+input TableFloatFilterInput {
+	ne: Float
+	eq: Float
+	le: Float
+	lt: Float
+	ge: Float
+	gt: Float
+	contains: Float
+	notContains: Float
+	between: [Float]
+}
+
+input TableIDFilterInput {
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
+}
+
+input TableIntFilterInput {
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
+}
+
+input TablePostFilterInput {
+	id: TableIDFilterInput
+	title: TableStringFilterInput
+}
+
+input TableStringFilterInput {
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
+}
+
+input UpdatePostInput {
+	id: ID!
+	title: String
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}

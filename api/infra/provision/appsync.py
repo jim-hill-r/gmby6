@@ -13,7 +13,7 @@ def createGraphQL(region):
       if(api['name'] == name):
          print(f'GraphQL {name} already exists.')
          return
-   appsync.create_graphql_api(name=name,authenticationType='API_KEY')
+   appsync.create_graphql_api(name=name,authenticationType='AWS_IAM')
    print(f'GraphQL created.')
 
 if __name__ == '__main__':
