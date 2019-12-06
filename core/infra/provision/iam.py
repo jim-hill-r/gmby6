@@ -16,6 +16,6 @@ def createUser(username):
         print(f'User {username} probably already exists, not creating.')
 
 if __name__ == '__main__':
-    usernames = ['jim-hill-r','stevenhill']
+    usernames = ['jim-hill-r','stevenhill'] #TODO: Get these from the json resource file
     for username in usernames:
         createUser(username)
