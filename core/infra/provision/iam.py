@@ -15,7 +15,47 @@ def createUser(username):
     except:
         print(f'User {username} probably already exists, not creating.')
 
+def createAdminGroup():
+    iam = boto3.client('iam')
+    name = 'gmby6-iam-admin'
+    print(f'Creating group `{name}``...')
+    try:
+        iam.create_group(GroupName=name)
+        print(f'Group `{name}` created.')
+    except:
+        print(f'Group {name} probably already exists, not creating.')
+
+def createAdminGroupPolicy():
+    iam = boto3.client('iam')
+    name = 'gmby6-iam-fullaccess'
+    print(f'Creating policy `{name}`...')
+    try:
+        iam.put_group_policy(
+            GroupName='gmby6-iam-admin',
+            PolicyName='gmby6-iam-fullaccess',
+            PolicyDocument='{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": [ "iam:*", "organizations:DescribeAccount", "organizations:DescribeOrganization", "organizations:DescribeOrganizationalUnit", "organizations:DescribePolicy", "organizations:ListChildren", "organizations:ListParents", "organizations:ListPoliciesForTarget", "organizations:ListRoots", "organizations:ListPolicies", "organizations:ListTargetsForPolicy" ], "Resource": "*" } ] }'
+        )
+        print(f'Policy `{name}` created.')
+    except:
+        print(f'Policy {name} probably already exists, not creating.')
+
+def addUsertoAdminGroup(username):
+    iam = boto3.client('iam')
+    groupname = 'gmby6-iam-admin'
+    print(f'Adding user `{username}` to group `{groupname}`...')
+    try:
+        iam.add_user_to_group(
+            GroupName=groupname,
+            UserName=username
+        )
+        print(f'Added user `{username}` to group `{groupname}`.')
+    except:
+        print(f'Something went wrong.')
+
 if __name__ == '__main__':
     usernames = ['jim-hill-r','stevenhill'] #TODO: Get these from the json resource file
+    createAdminGroup()
+    createAdminGroupPolicy()
     for username in usernames:
         createUser(username)
+        addUsertoAdminGroup(username)
