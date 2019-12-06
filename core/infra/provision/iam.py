@@ -1,10 +1,16 @@
 # Run this script as `iam-mutator` role
+import random
+import string
 
 try:
    import boto3
 except ImportError:
    print(f'Error: boto3 is required. Please install.')
    print(f'Try: pip install boto3')
+
+def randomString(stringLength=10):
+    letters = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters) for i in range(stringLength))
 
 def createUser(username):
     print(f'Creating user {username}...')
@@ -14,6 +20,14 @@ def createUser(username):
         print(f'User {username} created.')
     except:
         print(f'User {username} probably already exists, not creating.')
+
+def addConsolePermissionsForUser(username):
+    #TODO: Check if login permissions exist. If so, skip.
+    print(f'Adding login permissions for {username}...')
+    iam = boto3.client('iam')
+    password = randomString()
+    iam.create_login_profile(UserName=username,Password=password,PasswordResetRequired=True)
+    print(f'Added login permissions for {username}. Password is {password}.')
 
 def createAdminGroup():
     iam = boto3.client('iam')
@@ -53,9 +67,10 @@ def addUsertoAdminGroup(username):
         print(f'Something went wrong.')
 
 if __name__ == '__main__':
-    usernames = ['jim-hill-r','stevenhill'] #TODO: Get these from the json resource file
+    usernames = ['jim-hill-r','geryonghost'] #TODO: Get these from the json resource file
     createAdminGroup()
     createAdminGroupPolicy()
     for username in usernames:
         createUser(username)
+        addConsolePermissionsForUser(username)
         addUsertoAdminGroup(username)
