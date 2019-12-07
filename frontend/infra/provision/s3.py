@@ -6,9 +6,10 @@ except ImportError:
    print(f'Error: boto3 is required. Please install.')
    print(f'Try: pip install boto3')
 
-def provisionBucket(bucket, region):
+def provision(bucket, region):
     s3 = boto3.client('s3', region_name=region)
 
+    print ('Creating app s3 bucket...')
     try:
         location = {'LocationConstraint': region}
         s3.create_bucket(Bucket=bucket,CreateBucketConfiguration=location)
@@ -40,13 +41,5 @@ def provisionBucket(bucket, region):
     s3.put_bucket_website(Bucket=bucket,WebsiteConfiguration=website_configuration)
     s3.put_bucket_policy(Bucket=bucket, Policy=policy)
 
-def provision():
-    print ('Provisioning resources...')
-    print ('Creating app s3 bucket...')
-    provisionBucket('gmby6-app','us-east-2')
-    print ('Creating cloudfront endpoint...')
-    #TODO: Create cloudfront webpage 
-    print ('All resources are ready!')
-
 if __name__ == '__main__':
-    provision()
+    provision('gmby6-app','us-east-2')
