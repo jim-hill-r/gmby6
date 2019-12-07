@@ -29,6 +29,9 @@
 <script>
 export default {
   name: 'PageJournal',
+  created () {
+    this.$store.dispatch('journal/getPosts')
+  },
   data () {
     return {
       newPostOpen: false,
