@@ -1,7 +1,7 @@
 {
   "name": "gumby",
   "version": "0.0.1",
-  "description": "Gumby: Connecting climbers",
+  "description": "gumby - connecting climbers",
   "productName": "gumby",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
