@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          gumby
+          <span style="font-family: 'Frijole', cursive;"> gumby </span>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -25,7 +25,7 @@
     >
       <q-list>
         <q-item-label header>Welcome, guest.</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="">
+        <q-item clickable tag="a" href="">
           <q-item-section avatar>
             <q-icon name="exit_to_app" />
           </q-item-section>
@@ -33,7 +33,7 @@
             <q-item-label>Login</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
+        <q-item clickable to="journal">
           <q-item-section avatar>
             <q-icon name="subject" />
           </q-item-section>
@@ -42,9 +42,9 @@
             <q-item-label caption>Track all of your climbing activities</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="">
+        <q-item clickable to="routes">
           <q-item-section avatar>
-            <q-icon name="code" />
+            <q-icon name="satellite" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Routes</q-item-label>
@@ -59,6 +59,10 @@
     </q-page-container>
   </q-layout>
 </template>
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Frijole&display=swap');
+</style>
 
 <script>
 export default {
