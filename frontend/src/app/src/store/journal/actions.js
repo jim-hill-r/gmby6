@@ -3,6 +3,18 @@ import gql from 'graphql-tag'
 
 export function createPost (ctx, newText) {
   ctx.commit('prependPost', newText)
+  apollo.mutate({
+    mutation: gql`
+      mutation createPost {
+        createPost(input: {
+          text: "${newText}"
+        }){
+          id
+          text
+        }
+      }
+    `
+  })
 }
 
 export function getPosts (ctx) {
@@ -11,7 +23,7 @@ export function getPosts (ctx) {
       query Posts {
         getPost(id: 1) {
           id
-          title
+          text
         }
       }
     `
