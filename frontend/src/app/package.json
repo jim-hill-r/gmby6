@@ -1,8 +1,8 @@
 {
   "name": "gumby",
   "version": "0.0.1",
-  "description": "gumby - connecting climbers",
-  "productName": "gumby",
+  "description": "Grow Outdoors",
+  "productName": "GUMBY",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "Jim Hill <jim.hill.r@gmail.com>",
