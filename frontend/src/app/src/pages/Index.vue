@@ -2,13 +2,17 @@
   <q-page padding>
     <div>
       <div class="row justify-center">
-        <h1 style="font-family: 'Frijole', cursive; color:#43A047"> GUMBY </h1>
+        <div>
+          <h2 style="font-family: 'Frijole', cursive; color:#43A047"> GUMBY </h2>
+        </div>
       </div>
       <div class="row justify-center">
-        <img alt="GUMBY logo" src="~assets/gumby-logo-full.svg" style="width: 200px; height: 200px;">
+        <div>
+          <img alt="GUMBY logo" src="~assets/gumby-logo-full.svg" style="width: 150px; height: 150px;">
+        </div>
       </div>
       <div class="row justify-center">
-        <h3 style="font-family: 'Frijole', cursive; color:#43A047"> Grow Outdoors </h3>
+        <h4 style="font-family: 'Frijole', cursive; color:#43A047"> Grow Outdoors </h4>
       </div>
       <div class="row justify-center">
         <div class="q-pa-md">
