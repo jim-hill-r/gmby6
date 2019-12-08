@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import journal from './journal'
+import routes from './routes'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      journal
+      journal,
+      routes
     },
 
     // enable strict mode (adds overhead!)
