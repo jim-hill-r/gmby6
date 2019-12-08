@@ -1,21 +1,49 @@
 input CreatePostInput {
+	id: ID!
+	text: String!
+	created: AWSDateTime!
+}
+
+input CreateRouteInput {
+	id: ID!
 	title: String!
+	created: AWSDateTime!
+}
+
+input CreateUserInput {
+	created: AWSDateTime!
 }
 
 input DeletePostInput {
 	id: ID!
+	created: AWSDateTime!
+}
+
+input DeleteRouteInput {
+	id: ID!
+	created: AWSDateTime!
+}
+
+input DeleteUserInput {
+	id: ID!
 }
 
 type Mutation {
-	putPost(id: ID!, title: String!): Post
 	createPost(input: CreatePostInput!): Post
 	updatePost(input: UpdatePostInput!): Post
 	deletePost(input: DeletePostInput!): Post
+	createUser(input: CreateUserInput!): User
+	updateUser(input: UpdateUserInput!): User
+	deleteUser(input: DeleteUserInput!): User
+	createRoute(input: CreateRouteInput!): Route
+	updateRoute(input: UpdateRouteInput!): Route
+	deleteRoute(input: DeleteRouteInput!): Route
 }
 
 type Post {
 	id: ID!
-	title: String!
+	text: String!
+	created: AWSDateTime!
 }
 
 type PostConnection {
@@ -24,18 +52,45 @@ type PostConnection {
 }
 
 type Query {
-	singlePost(id: ID!): Post
-	getPost(id: ID!): Post
+	getTemp(id: ID!): Temp
+	getPost(id: ID!, created: AWSDateTime!): Post
 	listPosts(filter: TablePostFilterInput, limit: Int, nextToken: String): PostConnection
+	getUser(id: ID!): User
+	listUsers(filter: TableUserFilterInput, limit: Int, nextToken: String): UserConnection
+	getRoute(id: ID!, created: AWSDateTime!): Route
+	listRoutes(filter: TableRouteFilterInput, limit: Int, nextToken: String): RouteConnection
+}
+
+type Route {
+	id: ID!
+	title: String!
+	created: AWSDateTime!
+}
+
+type RouteConnection {
+	items: [Route]
+	nextToken: String
 }
 
 type Subscription {
-	onCreatePost(id: ID, title: String): Post
+	onCreatePost(id: ID, text: String, created: AWSDateTime): Post
 		@aws_subscribe(mutations: ["createPost"])
-	onUpdatePost(id: ID, title: String): Post
+	onUpdatePost(id: ID, text: String, created: AWSDateTime): Post
 		@aws_subscribe(mutations: ["updatePost"])
-	onDeletePost(id: ID, title: String): Post
+	onDeletePost(id: ID, text: String, created: AWSDateTime): Post
 		@aws_subscribe(mutations: ["deletePost"])
+	onCreateUser(id: ID, created: AWSDateTime): User
+		@aws_subscribe(mutations: ["createUser"])
+	onUpdateUser(id: ID, created: AWSDateTime): User
+		@aws_subscribe(mutations: ["updateUser"])
+	onDeleteUser(id: ID, created: AWSDateTime): User
+		@aws_subscribe(mutations: ["deleteUser"])
+	onCreateRoute(id: ID, title: String, created: AWSDateTime): Route
+		@aws_subscribe(mutations: ["createRoute"])
+	onUpdateRoute(id: ID, title: String, created: AWSDateTime): Route
+		@aws_subscribe(mutations: ["updateRoute"])
+	onDeleteRoute(id: ID, title: String, created: AWSDateTime): Route
+		@aws_subscribe(mutations: ["deleteRoute"])
 }
 
 input TableBooleanFilterInput {
@@ -82,7 +137,14 @@ input TableIntFilterInput {
 
 input TablePostFilterInput {
 	id: TableIDFilterInput
+	text: TableStringFilterInput
+	created: TableStringFilterInput
+}
+
+input TableRouteFilterInput {
+	id: TableIDFilterInput
 	title: TableStringFilterInput
+	created: TableStringFilterInput
 }
 
 input TableStringFilterInput {
@@ -98,9 +160,41 @@ input TableStringFilterInput {
 	beginsWith: String
 }
 
+input TableUserFilterInput {
+	id: TableIDFilterInput
+	created: TableStringFilterInput
+}
+
+type Temp {
+	id: ID!
+	text: String!
+}
+
 input UpdatePostInput {
 	id: ID!
+	text: String
+	created: AWSDateTime!
+}
+
+input UpdateRouteInput {
+	id: ID!
 	title: String
+	created: AWSDateTime!
+}
+
+input UpdateUserInput {
+	id: ID!
+	created: AWSDateTime
+}
+
+type User {
+	id: ID!
+	created: AWSDateTime!
+}
+
+type UserConnection {
+	items: [User]
+	nextToken: String
 }
 
 schema {
