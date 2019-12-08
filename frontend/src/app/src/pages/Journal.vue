@@ -2,7 +2,7 @@
   <q-page padding>
     <q-card v-if="newPostOpen">
       <q-card-section>
-        <div class="q-pa-md" style="width: 100%;">
+        <div>
           <q-input
             v-model="newText"
             outlined

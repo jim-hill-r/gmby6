@@ -12,7 +12,9 @@
         />
 
         <q-toolbar-title>
-          <span style="font-family: 'Frijole', cursive;"> gumby </span>
+          <router-link to="/" >
+            <span style="font-family: 'Frijole', cursive;"> GUMBY </span>
+          </router-link>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -25,7 +27,7 @@
     >
       <q-list>
         <q-item-label header>Welcome, guest.</q-item-label>
-        <q-item clickable tag="a" href="">
+        <q-item clickable to="login">
           <q-item-section avatar>
             <q-icon name="exit_to_app" />
           </q-item-section>
@@ -59,10 +61,6 @@
     </q-page-container>
   </q-layout>
 </template>
-
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Frijole&display=swap');
-</style>
 
 <script>
 export default {
