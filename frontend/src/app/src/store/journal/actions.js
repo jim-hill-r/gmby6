@@ -4,10 +4,12 @@ import gql from 'graphql-tag'
 export function createPost (ctx, newText) {
   let date = new Date()
   let dateString = date.toISOString()
+  let newId = Math.random().toString(36).substring(2) + Date.now().toString(36)
   apollo.mutate({
     mutation: gql`
       mutation createPost {
         createPost(input: {
+          id: "${newId}"
           text: "${newText}"
           created: "${dateString}"
         }){
