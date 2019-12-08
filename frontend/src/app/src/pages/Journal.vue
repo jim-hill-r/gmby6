@@ -16,7 +16,7 @@
 
     <q-card v-for="post in posts" v-bind:key="post.id">
       <q-card-section>
-        {{ post.text }}
+        {{ post.text }} - {{ post.created }}
       </q-card-section>
     </q-card>
 
