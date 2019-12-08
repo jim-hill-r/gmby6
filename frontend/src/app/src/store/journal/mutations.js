@@ -1,6 +1,7 @@
-export function prependPost (state, newText) {
-  state.posts.unshift({
-    id: Math.random().toString(36).substring(2) + Date.now().toString(36),
-    text: newText
-  })
+export function prependPost (state, newPost) {
+  state.posts.unshift(newPost)
+}
+
+export function setPosts (state, posts) {
+  state.posts = posts
 }
