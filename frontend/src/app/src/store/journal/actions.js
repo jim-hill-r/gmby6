@@ -35,7 +35,31 @@ export function getPosts (ctx) {
         }
       }
     `
-  }).then(res => ctx.commit('setPosts', res.data.listPosts.items.sort((a, b) => {
+  }).then(res => ctx.commit('setPosts', sortPosts(res.data.listPosts.items)))
+}
+
+export function searchPosts (ctx, searchText) {
+  apollo.query({
+    query: gql`
+      query Search {
+        listPosts(filter: {
+            text: {
+              contains: "${searchText}"
+            }
+          }, limit: 10){
+          items{
+            id
+            text
+            created
+          }
+        }
+      }
+    `
+  }).then(res => ctx.commit('setPosts', sortPosts(res.data.listPosts.items)))
+}
+
+function sortPosts (posts) {
+  return posts.sort((a, b) => {
     if (b.created < a.created) {
       return -1
     }
@@ -43,5 +67,5 @@ export function getPosts (ctx) {
       return 1
     }
     return 0
-  })))
+  })
 }

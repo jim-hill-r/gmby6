@@ -16,6 +16,27 @@
             <span style="font-family: 'Frijole', cursive;"> GUMBY </span>
           </router-link>
         </q-toolbar-title>
+
+        <q-space />
+
+        <q-input
+          dark
+          dense
+          standout
+          rounded
+          debounce="1000"
+          type="search"
+          v-model="searchText"
+          input-class="text-right"
+          class="q-ml-md"
+          style="width:30%;"
+          @input="submitSearch()"
+        >
+          <template v-slot:append>
+            <q-icon v-if="searchText === ''" name="search" />
+            <q-icon v-else name="clear" class="cursor-pointer" @click="clearSearch()" />
+          </template>
+        </q-input>
       </q-toolbar>
     </q-header>
 
@@ -68,7 +89,17 @@ export default {
 
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      searchText: ''
+    }
+  },
+  methods: {
+    clearSearch () {
+      this.searchText = ''
+      this.submitSearch()
+    },
+    submitSearch () {
+      this.$store.dispatch('search/submitSearch', this.searchText)
     }
   }
 }

@@ -35,7 +35,31 @@ export function getRoutes (ctx) {
         }
       }
     `
-  }).then(res => ctx.commit('setRoutes', res.data.listRoutes.items.sort((a, b) => {
+  }).then(res => ctx.commit('setRoutes', sortRoutes(res.data.listRoutes.items)))
+}
+
+export function searchRoutes (ctx, searchText) {
+  apollo.query({
+    query: gql`
+      query Search {
+        listRoutes(filter: {
+          title: {
+            contains: "${searchText}"
+          }
+        }, limit: 10){
+          items{
+            id
+            title
+            created
+          }
+        }
+      }
+    `
+  }).then(res => ctx.commit('setRoutes', sortRoutes(res.data.listRoutes.items)))
+}
+
+function sortRoutes (routes) {
+  return routes.sort((a, b) => {
     if (b.title < a.title) {
       return -1
     }
@@ -43,5 +67,5 @@ export function getRoutes (ctx) {
       return 1
     }
     return 0
-  })))
+  })
 }
