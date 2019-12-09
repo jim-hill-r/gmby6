@@ -47,7 +47,7 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>Welcome, guest.</q-item-label>
+        <q-item-label header>Welcome, {{ username }}.</q-item-label>
         <q-item clickable to="login">
           <q-item-section avatar>
             <q-icon name="exit_to_app" />
@@ -91,6 +91,13 @@ export default {
     return {
       leftDrawerOpen: false,
       searchText: ''
+    }
+  },
+  computed: {
+    username: {
+      get () {
+        return this.$store.state.users.user.username
+      }
     }
   },
   methods: {
