@@ -16,7 +16,7 @@
 
     <q-card v-for="post in posts" v-bind:key="post.id">
       <q-card-section>
-        {{ post.text }} - {{ post.created }}
+        {{ post.text }} - <pretty-date v-bind:isodate="post.created" />
       </q-card-section>
     </q-card>
 
@@ -27,8 +27,13 @@
 </template>
 
 <script>
+import PrettyDate from '../components/prettydate.vue'
+
 export default {
   name: 'PageJournal',
+  components: {
+    PrettyDate
+  },
   created () {
     this.$store.dispatch('journal/getPosts')
   },
