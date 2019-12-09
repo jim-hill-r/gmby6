@@ -19,7 +19,7 @@
           <q-card style="width: 100%; max-width: 500px;">
             <q-parallax
               src="../statics/img/PersonalGrowth.png"
-              :height="200"
+              :height="300"
             />
             <q-card-section>
               <div class="text-h6">Personal Growth - We are all gumbys!</div>
@@ -53,7 +53,7 @@
           <q-card style="width: 100%; max-width: 500px;">
             <q-parallax
               src="../statics/img/CommunityGrowth.png"
-              :height="200"
+              :height="300"
             />
             <q-card-section>
               <div class="text-h6">Community Growth - Be a hero!</div>
