@@ -2,16 +2,18 @@ import apollo from '../apollo'
 import gql from 'graphql-tag'
 
 export function createRoute (ctx, title) {
+  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
-  let dateString = date.toISOString()
-  let newId = Math.random().toString(36).substring(2) + Date.now().toString(36)
+  let created = date.toISOString()
+  let createdBy = ctx.rootState.users.user.username
   apollo.mutate({
     mutation: gql`
       mutation createRoute {
         createRoute(input: {
-          id: "${newId}"
+          id: "${id}"
           title: "${title}"
-          created: "${dateString}"
+          created: "${created}"
+          createdBy: "${createdBy}"
         }){
           id
           title

@@ -2,9 +2,9 @@ import apollo from '../apollo'
 import gql from 'graphql-tag'
 
 export function createPost (ctx, text) {
+  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
   let created = date.toISOString()
-  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let createdBy = ctx.rootState.users.user.username
   apollo.mutate({
     mutation: gql`
