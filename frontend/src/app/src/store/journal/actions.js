@@ -5,9 +5,11 @@ export function createPost (ctx) {
   let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
   let created = date.toISOString()
+  let createdBy = ctx.rootState.users.user.username
   let post = {
     id: id,
     created: created,
+    createdBy: createdBy,
     editing: true,
     new: true
   }
@@ -23,6 +25,7 @@ export function savePost (ctx, post) {
             id: "${post.id}"
             text: "${post.text}"
             created: "${post.created}"
+            createdBy: "${post.createdBy}"
           }){
             id
             text
@@ -39,6 +42,7 @@ export function savePost (ctx, post) {
             id: "${post.id}"
             text: "${post.text}"
             created: "${post.created}"
+            createdBy: "${post.createdBy}"
           }){
             id
             text
@@ -64,10 +68,15 @@ export function cancelEditPost (ctx, post) {
 }
 
 export function getPosts (ctx) {
+  let createdBy = ctx.rootState.users.user.username
   apollo.query({
     query: gql`
       query Posts {
-        listPosts(limit: 10){
+        listPosts(filter: {
+          createdBy: {
+            eq: "${createdBy}"
+          }
+        }, limit: 10){
           items{
             id
             text
@@ -80,12 +89,16 @@ export function getPosts (ctx) {
 }
 
 export function searchPosts (ctx, searchText) {
+  let createdBy = ctx.rootState.users.user.username
   apollo.query({
     query: gql`
       query Search {
         listPosts(filter: {
             text: {
               contains: "${searchText}"
+            }
+            createdBy: {
+              eq: "${createdBy}"
             }
           }, limit: 10){
           items{
