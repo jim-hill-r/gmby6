@@ -1,17 +1,19 @@
 import apollo from '../apollo'
 import gql from 'graphql-tag'
 
-export function createPost (ctx, newText) {
+export function createPost (ctx, text) {
+  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
-  let dateString = date.toISOString()
-  let newId = Math.random().toString(36).substring(2) + Date.now().toString(36)
+  let created = date.toISOString()
+  let createdBy = ctx.rootState.users.user.username
   apollo.mutate({
     mutation: gql`
       mutation createPost {
         createPost(input: {
-          id: "${newId}"
-          text: "${newText}"
-          created: "${dateString}"
+          id: "${id}"
+          text: "${text}"
+          created: "${created}"
+          createdBy: "${createdBy}"
         }){
           id
           text
@@ -23,10 +25,15 @@ export function createPost (ctx, newText) {
 }
 
 export function getPosts (ctx) {
+  let createdBy = ctx.rootState.users.user.username
   apollo.query({
     query: gql`
       query Posts {
-        listPosts(limit: 10){
+        listPosts(filter: {
+          createdBy: {
+            eq: "${createdBy}"
+          }
+        }, limit: 10){
           items{
             id
             text
@@ -39,12 +46,16 @@ export function getPosts (ctx) {
 }
 
 export function searchPosts (ctx, searchText) {
+  let createdBy = ctx.rootState.users.user.username
   apollo.query({
     query: gql`
       query Search {
         listPosts(filter: {
             text: {
               contains: "${searchText}"
+            }
+            createdBy: {
+              eq: "${createdBy}"
             }
           }, limit: 10){
           items{

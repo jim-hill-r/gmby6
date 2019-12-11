@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import journal from './journal'
 import routes from './routes'
 import search from './search'
+import users from './users'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ export default function (/* { ssrContext } */) {
     modules: {
       journal,
       routes,
-      search
+      search,
+      users
     },
 
     // enable strict mode (adds overhead!)
