@@ -1,6 +1,6 @@
 <template>
   <q-card v-if="post">
-    <q-card-section v-if="post.editing">
+    <q-card-section v-if="post.editable">
       <div>
         <q-btn color="accent" flat dense round icon="add" aria-laebl="Add Climb" @click="addClimb()"/>
         <q-btn color="primary" flat dense round icon="save" aria-label="Save" @click="save()"/>
@@ -17,7 +17,7 @@
         <Climb> </Climb>
       </div>
     </q-card-section>
-    <q-card-section v-if="!post.editing">
+    <q-card-section v-if="!post.editable">
       <div>
         <pretty-date v-bind:isodate="post.created" />
         <q-btn color="primary" flat dense round icon="edit" aria-label="Edit" @click="edit()" />

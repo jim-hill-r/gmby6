@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div v-for="post in $store.state.journal.posts" v-bind:key="post.id">
+    <div v-for="post in posts" v-bind:key="post.id">
       <post v-bind:post="post"> </post>
     </div>
 
@@ -30,6 +30,13 @@ export default {
   methods: {
     createPost () {
 
+    }
+  },
+  computed: {
+    posts: {
+      get () {
+        return this.$store.state.journal.posts
+      }
     }
   }
 }
