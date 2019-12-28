@@ -10,7 +10,10 @@ export function setEditable (state, id) {
 }
 
 export function setPost (state, post) {
-  const index = state.posts.findIndex(p => p.id === post.id)
+  let index = state.posts.findIndex(p => p.id === post.id)
+  if (index < 0) {
+    index = state.posts.findIndex(p => p.localId === post.localId)
+  }
   Vue.set(state.posts, index, post)
 }
 

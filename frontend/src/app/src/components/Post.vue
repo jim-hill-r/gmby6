@@ -39,9 +39,6 @@ export default {
     PrettyDate,
     Climb
   },
-  created () {
-    console.log(this.post)
-  },
   props: {
     post: {}
   },

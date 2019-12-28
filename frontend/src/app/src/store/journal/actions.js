@@ -2,15 +2,15 @@ import apollo from '../apollo'
 import gql from 'graphql-tag'
 
 export function createPost (ctx) {
-  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
+  let localId = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
   let created = date.toISOString()
   let createdBy = ctx.rootState.users.user.username
   let post = {
-    id: id,
+    localId: localId,
     created: created,
     createdBy: createdBy,
-    editing: true,
+    editable: true,
     new: true
   }
   ctx.commit('prependPost', post)
@@ -33,7 +33,10 @@ export function savePost (ctx, post) {
           }
         }
       `
-    }).then(res => ctx.commit('setPost', res.data.createPost))
+    }).then(res => {
+      res.data.createPost.localId = post.localId
+      ctx.commit('setPost', res.data.createPost)
+    })
   } else {
     apollo.mutate({
       mutation: gql`

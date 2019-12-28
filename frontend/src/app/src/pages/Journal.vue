@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     createPost () {
-
+      this.$store.dispatch('journal/createPost')
     }
   },
   computed: {
