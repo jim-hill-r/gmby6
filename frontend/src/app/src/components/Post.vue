@@ -13,8 +13,8 @@
           type="textarea"
         />
       </div>
-      <div v-for="climb in post.climbs" v-bind:key="climb.id">
-        <Climb> </Climb>
+      <div v-for="climb in climbs" v-bind:key="climb.id">
+        <climb> </climb>
       </div>
     </q-card-section>
     <q-card-section v-if="!post.editable">
@@ -54,6 +54,14 @@ export default {
     },
     addClimb () {
       this.$store.dispatch('journal/createClimb', this.post.id)
+    }
+  },
+  computed: {
+    climbs: {
+      get () {
+        console.log(this.$store.state.journal.climbs[this.post.id])
+        return this.$store.state.journal.climbs[this.post.id]
+      }
     }
   }
 }

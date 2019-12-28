@@ -1,13 +1,28 @@
 import apollo from '../apollo'
 import gql from 'graphql-tag'
 
+export function createClimb (ctx, postId) {
+  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
+  let date = new Date()
+  let created = date.toISOString()
+  let climb = {
+    id: id,
+    created: created
+  }
+  let climbInput = {
+    postId: postId,
+    climb: climb
+  }
+  ctx.commit('prependClimb', climbInput)
+}
+
 export function createPost (ctx) {
-  let localId = Math.random().toString(36).substring(2) + Date.now().toString(36)
+  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
   let created = date.toISOString()
   let createdBy = ctx.rootState.users.user.username
   let post = {
-    localId: localId,
+    id: id,
     created: created,
     createdBy: createdBy,
     editable: true,
@@ -34,7 +49,11 @@ export function savePost (ctx, post) {
         }
       `
     }).then(res => {
-      res.data.createPost.localId = post.localId
+      let idUpdate = {
+        currentId: post.id,
+        newId: res.data.createPost.id
+      }
+      ctx.commit('setId', idUpdate)
       ctx.commit('setPost', res.data.createPost)
     })
   } else {
