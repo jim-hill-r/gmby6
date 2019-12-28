@@ -42,7 +42,6 @@ export function savePost (ctx, post) {
             id: "${post.id}"
             text: "${post.text}"
             created: "${post.created}"
-            createdBy: "${post.createdBy}"
           }){
             id
             text
@@ -62,7 +61,7 @@ export function cancelEditPost (ctx, post) {
   if (post.new) {
     ctx.commit('removePost', post.id)
   } else {
-    post.editing = false
+    post.editable = false
     ctx.commit('setPost', post)
   }
 }

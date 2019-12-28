@@ -11,7 +11,7 @@ export function setEditable (state, id) {
 
 export function setPost (state, post) {
   const index = state.posts.findIndex(p => p.id === post.id)
-  state.posts[index] = post
+  Vue.set(state.posts, index, post)
 }
 
 export function removePost (state, id) {
