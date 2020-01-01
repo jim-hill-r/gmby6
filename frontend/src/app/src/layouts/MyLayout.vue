@@ -34,7 +34,12 @@
         >
           <template v-slot:append>
             <q-icon v-if="searchText === ''" name="search" />
-            <q-icon v-else name="clear" class="cursor-pointer" @click="clearSearch()" />
+            <q-icon
+              v-else
+              name="clear"
+              class="cursor-pointer"
+              @click="clearSearch()"
+            />
           </template>
         </q-input>
       </q-toolbar>
@@ -72,6 +77,18 @@
           <q-item-section>
             <q-item-label>Routes</q-item-label>
             <q-item-label caption>Search for new climbs to try</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable to="find">
+          <q-item-section avatar>
+            <q-icon name="find_in_page" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Find a Group</q-item-label>
+            <q-item-label caption
+              >Search for groups climbing in your area!</q-item-label
+            >
           </q-item-section>
         </q-item>
       </q-list>

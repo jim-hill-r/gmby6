@@ -8,6 +8,7 @@ const routes = [
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'journal', component: () => import('pages/Journal.vue') },
       { path: 'routes', component: () => import('pages/Routes.vue') },
+      { path: 'find', component: () => import('pages/Find.vue') }
     ]
   }
 ]
