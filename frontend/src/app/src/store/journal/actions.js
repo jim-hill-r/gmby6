@@ -1,27 +1,91 @@
 import apollo from '../apollo'
 import gql from 'graphql-tag'
 
-export function createPost (ctx, text) {
+export function createClimb (ctx, postId) {
+  let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
+  let date = new Date()
+  let created = date.toISOString()
+  let climb = {
+    id: id,
+    created: created
+  }
+  let climbInput = {
+    postId: postId,
+    climb: climb
+  }
+  ctx.commit('prependClimb', climbInput)
+}
+
+export function createPost (ctx) {
   let id = Math.random().toString(36).substring(2) + Date.now().toString(36)
   let date = new Date()
   let created = date.toISOString()
   let createdBy = ctx.rootState.users.user.username
-  apollo.mutate({
-    mutation: gql`
-      mutation createPost {
-        createPost(input: {
-          id: "${id}"
-          text: "${text}"
-          created: "${created}"
-          createdBy: "${createdBy}"
-        }){
-          id
-          text
-          created
+  let post = {
+    id: id,
+    created: created,
+    createdBy: createdBy,
+    editable: true,
+    new: true
+  }
+  ctx.commit('prependPost', post)
+}
+
+export function savePost (ctx, post) {
+  if (post.new) {
+    apollo.mutate({
+      mutation: gql`
+        mutation createPost {
+          createPost(input: {
+            id: "${post.id}"
+            text: "${post.text}"
+            created: "${post.created}"
+            createdBy: "${post.createdBy}"
+          }){
+            id
+            text
+            created
+          }
         }
+      `
+    }).then(res => {
+      let idUpdate = {
+        currentId: post.id,
+        newId: res.data.createPost.id
       }
-    `
-  }).then(res => ctx.commit('prependPost', res.data.createPost))
+      ctx.commit('setId', idUpdate)
+      ctx.commit('setPost', res.data.createPost)
+    })
+  } else {
+    apollo.mutate({
+      mutation: gql`
+        mutation updatePost {
+          updatePost(input: {
+            id: "${post.id}"
+            text: "${post.text}"
+            created: "${post.created}"
+          }){
+            id
+            text
+            created
+          }
+        }
+      `
+    }).then(res => ctx.commit('setPost', res.data.updatePost))
+  }
+}
+
+export function editPost (ctx, post) {
+  ctx.commit('setEditable', post.id)
+}
+
+export function cancelEditPost (ctx, post) {
+  if (post.new) {
+    ctx.commit('removePost', post.id)
+  } else {
+    post.editable = false
+    ctx.commit('setPost', post)
+  }
 }
 
 export function getPosts (ctx) {

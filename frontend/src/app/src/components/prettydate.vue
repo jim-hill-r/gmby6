@@ -19,11 +19,11 @@ export default {
         if (days > 14) {
           return datetime.toLocaleString()
         } else if (days > 6) {
-          return `last week`
+          return `Last week`
         } else if (days > 1) {
           return `${days} days ago`
         } else if (days > 0) {
-          return `yesterday`
+          return `Yesterday`
         }
         diff -= days * (1000 * 60 * 60 * 24)
 
@@ -47,7 +47,7 @@ export default {
         if (seconds > 15) {
           return `${seconds} minutes ago`
         }
-        return `just now`
+        return `Just now`
       }
     }
   },

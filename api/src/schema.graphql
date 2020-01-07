@@ -1,205 +1,234 @@
-input CreatePostInput {
-	id: ID!
-	text: String!
-	created: AWSDateTime!
-	createdBy: String!
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
 }
 
-input CreateRouteInput {
-	id: ID!
-	title: String!
-	created: AWSDateTime!
-	createdBy: String!
+type Climb {
+  created: AWSDateTime!
+  id: ID!
 }
 
-input CreateUserInput {
-	id: ID!
-	name: String!
-	created: AWSDateTime!
-}
-
-input DeletePostInput {
-	id: ID!
-	created: AWSDateTime!
-}
-
-input DeleteRouteInput {
-	id: ID!
-	created: AWSDateTime!
-}
-
-input DeleteUserInput {
-	id: ID!
+type ClimbConnection {
+  items: [Climb]
+  nextToken: String
 }
 
 type Mutation {
-	createPost(input: CreatePostInput!): Post
-	updatePost(input: UpdatePostInput!): Post
-	deletePost(input: DeletePostInput!): Post
-	createUser(input: CreateUserInput!): User
-	updateUser(input: UpdateUserInput!): User
-	deleteUser(input: DeleteUserInput!): User
-	createRoute(input: CreateRouteInput!): Route
-	updateRoute(input: UpdateRouteInput!): Route
-	deleteRoute(input: DeleteRouteInput!): Route
+  createClimb(input: CreateClimbInput!): Climb
+  createPost(input: CreatePostInput!): Post
+  createRoute(input: CreateRouteInput!): Route
+  createUser(input: CreateUserInput!): User
+  deleteClimb(input: DeleteClimbInput!): Climb
+  deletePost(input: DeletePostInput!): Post
+  deleteRoute(input: DeleteRouteInput!): Route
+  deleteUser(input: DeleteUserInput!): User
+  updateClimb(input: UpdateClimbInput!): Climb
+  updatePost(input: UpdatePostInput!): Post
+  updateRoute(input: UpdateRouteInput!): Route
+  updateUser(input: UpdateUserInput!): User
 }
 
 type Post {
-	id: ID!
-	text: String!
-	created: AWSDateTime!
-	createdBy: String!
+  created: AWSDateTime!
+  createdBy: String!
+  id: ID!
+  text: String!
 }
 
 type PostConnection {
-	items: [Post]
-	nextToken: String
+  items: [Post]
+  nextToken: String
 }
 
 type Query {
-	getPost(id: ID!, created: AWSDateTime!): Post
-	listPosts(filter: TablePostFilterInput, limit: Int, nextToken: String): PostConnection
-	getUser(id: ID!): User
-	listUsers(filter: TableUserFilterInput, limit: Int, nextToken: String): UserConnection
-	getRoute(id: ID!, created: AWSDateTime!): Route
-	listRoutes(filter: TableRouteFilterInput, limit: Int, nextToken: String): RouteConnection
+  getClimb(created: AWSDateTime!, id: ID!): Climb
+  getPost(created: AWSDateTime!, id: ID!): Post
+  getRoute(created: AWSDateTime!, id: ID!): Route
+  getUser(id: ID!): User
+  listClimbs(filter: TableClimbFilterInput, limit: Int, nextToken: String): ClimbConnection
+  listPosts(filter: TablePostFilterInput, limit: Int, nextToken: String): PostConnection
+  listRoutes(filter: TableRouteFilterInput, limit: Int, nextToken: String): RouteConnection
+  listUsers(filter: TableUserFilterInput, limit: Int, nextToken: String): UserConnection
 }
 
 type Route {
-	id: ID!
-	title: String!
-	created: AWSDateTime!
-	createdBy: String!
+  created: AWSDateTime!
+  createdBy: String!
+  id: ID!
+  title: String!
 }
 
 type RouteConnection {
-	items: [Route]
-	nextToken: String
+  items: [Route]
+  nextToken: String
 }
 
 type Subscription {
-	onCreatePost(id: ID, text: String, created: AWSDateTime): Post
-		@aws_subscribe(mutations: ["createPost"])
-	onUpdatePost(id: ID, text: String, created: AWSDateTime): Post
-		@aws_subscribe(mutations: ["updatePost"])
-	onDeletePost(id: ID, text: String, created: AWSDateTime): Post
-		@aws_subscribe(mutations: ["deletePost"])
-	onCreateUser(id: ID, created: AWSDateTime): User
-		@aws_subscribe(mutations: ["createUser"])
-	onUpdateUser(id: ID, created: AWSDateTime): User
-		@aws_subscribe(mutations: ["updateUser"])
-	onDeleteUser(id: ID, created: AWSDateTime): User
-		@aws_subscribe(mutations: ["deleteUser"])
-	onCreateRoute(id: ID, title: String, created: AWSDateTime): Route
-		@aws_subscribe(mutations: ["createRoute"])
-	onUpdateRoute(id: ID, title: String, created: AWSDateTime): Route
-		@aws_subscribe(mutations: ["updateRoute"])
-	onDeleteRoute(id: ID, title: String, created: AWSDateTime): Route
-		@aws_subscribe(mutations: ["deleteRoute"])
-}
-
-input TableBooleanFilterInput {
-	ne: Boolean
-	eq: Boolean
-}
-
-input TableFloatFilterInput {
-	ne: Float
-	eq: Float
-	le: Float
-	lt: Float
-	ge: Float
-	gt: Float
-	contains: Float
-	notContains: Float
-	between: [Float]
-}
-
-input TableIDFilterInput {
-	ne: ID
-	eq: ID
-	le: ID
-	lt: ID
-	ge: ID
-	gt: ID
-	contains: ID
-	notContains: ID
-	between: [ID]
-	beginsWith: ID
-}
-
-input TableIntFilterInput {
-	ne: Int
-	eq: Int
-	le: Int
-	lt: Int
-	ge: Int
-	gt: Int
-	contains: Int
-	notContains: Int
-	between: [Int]
-}
-
-input TablePostFilterInput {
-	id: TableIDFilterInput
-	text: TableStringFilterInput
-	created: TableStringFilterInput
-	createdBy: TableStringFilterInput
-}
-
-input TableRouteFilterInput {
-	id: TableIDFilterInput
-	title: TableStringFilterInput
-	created: TableStringFilterInput
-}
-
-input TableStringFilterInput {
-	ne: String
-	eq: String
-	le: String
-	lt: String
-	ge: String
-	gt: String
-	contains: String
-	notContains: String
-	between: [String]
-	beginsWith: String
-}
-
-input TableUserFilterInput {
-	id: TableIDFilterInput
-	created: TableStringFilterInput
-}
-
-input UpdatePostInput {
-	id: ID!
-	text: String
-	created: AWSDateTime!
-}
-
-input UpdateRouteInput {
-	id: ID!
-	title: String
-	created: AWSDateTime!
-}
-
-input UpdateUserInput {
-	id: ID!
-	created: AWSDateTime
+  onCreateClimb(created: AWSDateTime, id: ID): Climb @aws_subscribe(mutations : ["createClimb"])
+  onCreatePost(created: AWSDateTime, id: ID, text: String): Post @aws_subscribe(mutations : ["createPost"])
+  onCreateRoute(created: AWSDateTime, id: ID, title: String): Route @aws_subscribe(mutations : ["createRoute"])
+  onCreateUser(created: AWSDateTime, id: ID): User @aws_subscribe(mutations : ["createUser"])
+  onDeleteClimb(created: AWSDateTime, id: ID): Climb @aws_subscribe(mutations : ["deleteClimb"])
+  onDeletePost(created: AWSDateTime, id: ID, text: String): Post @aws_subscribe(mutations : ["deletePost"])
+  onDeleteRoute(created: AWSDateTime, id: ID, title: String): Route @aws_subscribe(mutations : ["deleteRoute"])
+  onDeleteUser(created: AWSDateTime, id: ID): User @aws_subscribe(mutations : ["deleteUser"])
+  onUpdateClimb(created: AWSDateTime, id: ID): Climb @aws_subscribe(mutations : ["updateClimb"])
+  onUpdatePost(created: AWSDateTime, id: ID, text: String): Post @aws_subscribe(mutations : ["updatePost"])
+  onUpdateRoute(created: AWSDateTime, id: ID, title: String): Route @aws_subscribe(mutations : ["updateRoute"])
+  onUpdateUser(created: AWSDateTime, id: ID): User @aws_subscribe(mutations : ["updateUser"])
 }
 
 type User {
-	id: ID!
-	created: AWSDateTime!
+  created: AWSDateTime!
+  id: ID!
 }
 
 type UserConnection {
-	items: [User]
-	nextToken: String
+  items: [User]
+  nextToken: String
 }
 
-schema {
-	query: Query
-	mutation: Mutation
-	subscription: Subscription
+input CreateClimbInput {
+  created: AWSDateTime!
+  id: ID!
+}
+
+input CreatePostInput {
+  created: AWSDateTime!
+  createdBy: String!
+  id: ID!
+  text: String!
+}
+
+input CreateRouteInput {
+  created: AWSDateTime!
+  createdBy: String!
+  id: ID!
+  title: String!
+}
+
+input CreateUserInput {
+  created: AWSDateTime!
+  id: ID!
+  name: String!
+}
+
+input DeleteClimbInput {
+  created: AWSDateTime!
+  id: ID!
+}
+
+input DeletePostInput {
+  created: AWSDateTime!
+  id: ID!
+}
+
+input DeleteRouteInput {
+  created: AWSDateTime!
+  id: ID!
+}
+
+input DeleteUserInput {
+  id: ID!
+}
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableClimbFilterInput {
+  created: TableStringFilterInput
+  id: TableIDFilterInput
+}
+
+input TableFloatFilterInput {
+  between: [Float]
+  contains: Float
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+  notContains: Float
+}
+
+input TableIDFilterInput {
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TablePostFilterInput {
+  created: TableStringFilterInput
+  createdBy: TableStringFilterInput
+  id: TableIDFilterInput
+  text: TableStringFilterInput
+}
+
+input TableRouteFilterInput {
+  created: TableStringFilterInput
+  id: TableIDFilterInput
+  title: TableStringFilterInput
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}
+
+input TableUserFilterInput {
+  created: TableStringFilterInput
+  id: TableIDFilterInput
+}
+
+input UpdateClimbInput {
+  created: AWSDateTime!
+  id: ID!
+}
+
+input UpdatePostInput {
+  created: AWSDateTime!
+  id: ID!
+  text: String
+}
+
+input UpdateRouteInput {
+  created: AWSDateTime!
+  id: ID!
+  title: String
+}
+
+input UpdateUserInput {
+  created: AWSDateTime
+  id: ID!
 }
