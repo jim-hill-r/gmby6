@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'PageFind'
+  name: 'PageDonate'
 }
 </script>

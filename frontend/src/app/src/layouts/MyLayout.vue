@@ -13,7 +13,7 @@
 
         <q-toolbar-title>
           <router-link to="/" >
-            <span style="font-family: 'Frijole', cursive;"> GUMBY </span>
+            <span class="header-link" style="font-family: 'Frijole', cursive;"> GUMBY </span>
           </router-link>
         </q-toolbar-title>
 
@@ -53,12 +53,13 @@
     >
       <q-list>
         <q-item-label header>Welcome, {{ username }}.</q-item-label>
-        <q-item clickable to="login">
+        <q-item clickable to="you">
           <q-item-section avatar>
             <q-icon name="exit_to_app" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Login</q-item-label>
+            <q-item-label>You</q-item-label>
+            <q-item-label caption>Learn about your climbing</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable to="journal">
@@ -67,7 +68,7 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>Journal</q-item-label>
-            <q-item-label caption>Track all of your climbing activities</q-item-label>
+            <q-item-label caption>Track your climbing activity</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable to="routes">
@@ -76,18 +77,28 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>Routes</q-item-label>
-            <q-item-label caption>Search for new climbs to try</q-item-label>
+            <q-item-label caption>Search for your next project</q-item-label>
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="find">
+        <q-item clickable to="meet">
           <q-item-section avatar>
             <q-icon name="find_in_page" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Find a Group</q-item-label>
-            <q-item-label caption
-              >Search for groups climbing in your area!</q-item-label
+            <q-item-label>Meet</q-item-label>
+            <q-item-label caption>Find others looking to climb</q-item-label
+            >
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable to="donate">
+          <q-item-section avatar>
+            <q-icon name="attach_money" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Donate</q-item-label>
+            <q-item-label caption>Support the community</q-item-label
             >
           </q-item-section>
         </q-item>

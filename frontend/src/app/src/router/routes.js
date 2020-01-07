@@ -5,10 +5,11 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'login', component: () => import('pages/Login.vue') },
+      { path: 'you', component: () => import('pages/You.vue') },
       { path: 'journal', component: () => import('pages/Journal.vue') },
       { path: 'routes', component: () => import('pages/Routes.vue') },
-      { path: 'find', component: () => import('pages/Find.vue') }
+      { path: 'meet', component: () => import('pages/Meet.vue') },
+      { path: 'donate', component: () => import('pages/Donate.vue') }
     ]
   }
 ]
