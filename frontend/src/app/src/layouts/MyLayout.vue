@@ -13,7 +13,7 @@
 
         <q-toolbar-title>
           <router-link to="/" >
-            <span class="header-link" style="font-family: 'Frijole', cursive;"> GUMBY </span>
+            <span class="text-white" style="font-family: 'Frijole', cursive;"> GUMBY </span>
           </router-link>
         </q-toolbar-title>
 
@@ -52,7 +52,11 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>Welcome, {{ username }}.</q-item-label>
+        <q-item-label header>
+          <div v-if="isAuthenticated">
+            Welcome, {{ username }}. <router-link to="/signout">Sign out</router-link>
+          </div>
+        </q-item-label>
         <q-item clickable to="you">
           <q-item-section avatar>
             <q-icon name="exit_to_app" />
@@ -111,10 +115,6 @@
   </q-layout>
 </template>
 
-<style>
-.header-link { color: white; }
-</style>
-
 <script>
 export default {
   name: 'MyLayout',
@@ -129,6 +129,11 @@ export default {
     username: {
       get () {
         return this.$store.state.users.user.username
+      }
+    },
+    isAuthenticated: {
+      get () {
+        return this.$store.state.users.isAuthenticated
       }
     }
   },
