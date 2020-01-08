@@ -88,10 +88,6 @@
   </q-page>
 </template>
 
-<style>
-.header-link { color: white; }
-</style>
-
 <script>
 export default {
   name: 'PageIndex',
