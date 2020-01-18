@@ -17,8 +17,7 @@ const routes = [
         beforeEnter: (to, from, next) => {
           let redirectUrl =
             window.location.protocol + '//' +
-            window.location.hostname + ':' +
-            window.location.port + '/' +
+            window.location.hostname + '/' +
             loginCallback
           window.location.href = encodeURI(
             'https://6umby.auth.us-east-2.amazoncognito.com/login?' +
@@ -34,8 +33,7 @@ const routes = [
         beforeEnter: (to, from, next) => {
           let redirectUrl =
             window.location.protocol + '//' +
-            window.location.hostname + ':' +
-            window.location.port + '/' +
+            window.location.hostname + '/' +
             logoutCallback
           window.location.href = encodeURI(
             'https://6umby.auth.us-east-2.amazoncognito.com/logout?' +

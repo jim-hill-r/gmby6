@@ -7,8 +7,7 @@ export function userLoggedIn (ctx, href) {
   let code = href.substring(start, start + codeLength)
   let redirectUrl =
     window.location.protocol + '//' +
-    window.location.hostname + ':' +
-    window.location.port + '/' +
+    window.location.hostname + '/' +
     'login'
   let body = encodeURI(
     'grant_type=authorization_code' +
