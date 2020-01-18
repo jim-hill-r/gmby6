@@ -18,7 +18,7 @@
         <div class="q-pa-md">
           <q-card style="width: 100%; max-width: 500px;">
             <q-parallax
-              src="../statics/img/PersonalGrowth.png"
+              src="../statics/img/PersonalGrowth.jpg"
               :height="300"
             />
             <q-card-section>
@@ -52,7 +52,7 @@
         <div class="q-pa-md">
           <q-card style="width: 100%; max-width: 500px;">
             <q-parallax
-              src="../statics/img/CommunityGrowth.png"
+              src="../statics/img/CommunityGrowth.jpg"
               :height="300"
             />
             <q-card-section>
