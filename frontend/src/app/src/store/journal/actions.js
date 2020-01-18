@@ -90,6 +90,7 @@ export function cancelEditPost (ctx, post) {
 
 export function getPosts (ctx) {
   let createdBy = ctx.rootState.users.user.username
+  //TODO: Change limit back to 20 once dynamoDB queries are fixed. 
   apollo.query({
     query: gql`
       query Posts {
@@ -97,7 +98,7 @@ export function getPosts (ctx) {
           createdBy: {
             eq: "${createdBy}"
           }
-        }, limit: 10){
+        }, limit: 1000){
           items{
             id
             text
@@ -111,6 +112,7 @@ export function getPosts (ctx) {
 
 export function searchPosts (ctx, searchText) {
   let createdBy = ctx.rootState.users.user.username
+  //TODO: Change limit back to 20 once dynamoDB queries are fixed. 
   apollo.query({
     query: gql`
       query Search {
@@ -121,7 +123,7 @@ export function searchPosts (ctx, searchText) {
             createdBy: {
               eq: "${createdBy}"
             }
-          }, limit: 10){
+          }, limit: 1000){
           items{
             id
             text
