@@ -98,9 +98,9 @@ module.exports = function (ctx) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {}, // only for NON InjectManifest
       manifest: {
-        // name: 'gumby',
-        // short_name: 'gumby',
-        // description: 'Gumby: Connecting climbers',
+        name: 'GUMBY',
+        short_name: 'GUMBY',
+        description: 'Climbing for everyone',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
