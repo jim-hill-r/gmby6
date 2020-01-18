@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'Login',
-  created () {  
+  created () {
     this.$store.dispatch('users/userLoggedIn', window.location.href)
     this.$router.push('/you')
   }
