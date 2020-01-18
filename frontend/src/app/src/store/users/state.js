@@ -1,5 +1,8 @@
 export default {
   user: {
-    username: 'guest'
+    displayname: '',
+    username: '',
+    isAuthenticated: false,
+    token: {}
   }
 }
