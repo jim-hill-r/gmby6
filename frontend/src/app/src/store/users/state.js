@@ -1,6 +1,8 @@
 export default {
   user: {
-    username: ''
-  },
-  isAuthenticated: false
+    displayname: '',
+    username: '',
+    isAuthenticated: false,
+    token: {}
+  }
 }

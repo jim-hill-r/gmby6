@@ -53,8 +53,11 @@
     >
       <q-list>
         <q-item-label header>
-          <div v-if="isAuthenticated">
-            Welcome, {{ username }}. <router-link to="/signout">Sign out</router-link>
+          <div v-show="isAuthenticated">
+            Welcome, {{ displayname }}. <router-link to="/signout">Sign out</router-link>
+          </div>
+          <div v-show="!isAuthenticated">
+            Welcome, guest. <router-link to="/signin">Sign in</router-link>
           </div>
         </q-item-label>
         <q-item clickable to="you">
@@ -126,14 +129,14 @@ export default {
     }
   },
   computed: {
-    username: {
+    displayname: {
       get () {
-        return this.$store.state.users.user.username
+        return this.$store.state.users.user.displayname
       }
     },
     isAuthenticated: {
       get () {
-        return this.$store.state.users.isAuthenticated
+        return this.$store.state.users.user.isAuthenticated
       }
     }
   },
@@ -144,6 +147,9 @@ export default {
     },
     submitSearch () {
       this.$store.dispatch('search/submitSearch', this.searchText)
+    },
+    signout () {
+      this.$store.dispatch('users/signout')
     }
   }
 }

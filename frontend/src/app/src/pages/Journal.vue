@@ -6,7 +6,7 @@
       </div>
       <template v-slot:action>
         <q-btn flat color="white" label="Continue as a Guest" @click="closeBanner=true" />
-        <q-btn flat color="white" label="Sign in" />
+        <q-btn flat color="white" label="Sign in" to="/signin" />
       </template>
     </q-banner>
 
@@ -51,7 +51,7 @@ export default {
     },
     hideBanner: {
       get () {
-        return this.$store.state.users.isAuthenticated || this.closeBanner
+        return this.$store.state.users.user.isAuthenticated || this.closeBanner
       }
     }
   }
